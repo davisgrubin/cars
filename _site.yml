@@ -7,6 +7,8 @@ navbar:
     href: index.html
   - text: "Speed and Distance"
     href: speed-and-distance.html
+  - text: "Gelman Chapter 2 Solutions"
+    href: ch2.html 
 output:
   html_document:
     theme: cosmo
