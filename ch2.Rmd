@@ -1,12 +1,13 @@
 ---
 title: "Gelman Exercises Chapter 2"
-output: html_document
+output: rmdformats::readthedown
 ---
 
 ##Question 1
 1.A test is graded from 0 to 50, with an average score of 35 and a std. deviation of 10. For comparison of tests, it would be convenient to rescale to a mean of 100 and standard deviation of 15.
 
-a) How can the scores be linearly transformed to have this new mean and standard deviation?
+###a) 
+How can the scores be linearly transformed to have this new mean and standard deviation?
 
     Changing the mean of the scores only requires addition (shifting the distribution to the right), and doesn't require a change in scaling, while changing the variance/std deviation will require multiplication that will effect the mean. Because of this, I've decided to scale the scores to adjust the std.deviation first and to then adjust the mean of the distribution as needed.   
     
@@ -23,7 +24,8 @@ test_scores <- Norm(mean = 35, sd = 10)
 1.5 * test_scores + 47.5
 ```
     
-b) There is another linear transformation that also rescales the scores to have mean 100 and std. deviation 15. What is it, and why would you *not* want to use it for this purpose?
+###b) 
+There is another linear transformation that also rescales the scores to have mean 100 and std. deviation 15. What is it, and why would you *not* want to use it for this purpose?
 
 Since standard deviation is an absolute measure, we could make $a$ = -1.5 , and adjust $b$ = 152.5 to achieve the desired $\mu$ and $\sigma$ as seen below.
 ```{r}
