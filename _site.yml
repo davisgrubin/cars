@@ -1,9 +1,9 @@
-name: "cars"
+name: "Multilevel & Hierarchical Modeling"
 output_dir: "docs"
 navbar:
-  title: "Gelman Solutions"
+  title: "Gelman Solutions:"
   left:
-  - text: "Gelman Chapter 2 Solutions"
+  - text: "Chapter 2"
     href: ch2.html 
 output:
   html_document:
