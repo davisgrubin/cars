@@ -1,7 +1,7 @@
 name: "Multilevel & Hierarchical Modeling"
 output_dir: "docs"
 navbar:
-  title: "Gelman Solutions:"
+  title: "Multilevel & Hierarchical Modeling"
   left:
   - text: "Home"
     href: index.html
@@ -9,5 +9,5 @@ navbar:
     href: ch2.html 
 output:
   html_document:
-    theme: cosmo
+    theme: rmdformats:readthedown
 

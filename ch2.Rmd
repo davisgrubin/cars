@@ -3,6 +3,7 @@ title: "Gelman Exercises Chapter 2"
 output: html_document
 ---
 
+##Question 1
 1.A test is graded from 0 to 50, with an average score of 35 and a std. deviation of 10. For comparison of tests, it would be convenient to rescale to a mean of 100 and standard deviation of 15.
 
 a) How can the scores be linearly transformed to have this new mean and standard deviation?
