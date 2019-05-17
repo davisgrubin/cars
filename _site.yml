@@ -1,12 +1,8 @@
 name: "cars"
 output_dir: "docs"
 navbar:
-  title: "Cars"
+  title: "Gelman Solutions"
   left:
-  - text: "Home"
-    href: index.html
-  - text: "Speed and Distance"
-    href: speed-and-distance.html
   - text: "Gelman Chapter 2 Solutions"
     href: ch2.html 
 output:
