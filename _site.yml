@@ -3,6 +3,8 @@ output_dir: "docs"
 navbar:
   title: "Gelman Solutions:"
   left:
+  - text: "Home"
+    href: index.html
   - text: "Chapter 2"
     href: ch2.html 
 output:
