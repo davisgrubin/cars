@@ -1,15 +1,15 @@
 ---
 title: "Gelman Exercises Chapter 2"
-output: rmdformats::readthedown
+output: "html_document"
 ---
 
-##Question 1
+<h1>Question 1</h1>
 1.A test is graded from 0 to 50, with an average score of 35 and a std. deviation of 10. For comparison of tests, it would be convenient to rescale to a mean of 100 and standard deviation of 15.
 
-###a) 
+<h2>a)</h2>
 How can the scores be linearly transformed to have this new mean and standard deviation?
 
-    Changing the mean of the scores only requires addition (shifting the distribution to the right), and doesn't require a change in scaling, while changing the variance/std deviation will require multiplication that will effect the mean. Because of this, I've decided to scale the scores to adjust the std.deviation first and to then adjust the mean of the distribution as needed.   
+Changing the mean of the scores only requires addition (shifting the distribution to the right), and doesn't require a change in scaling, while changing the variance/std deviation will require multiplication that will effect the mean. Because of this, I've decided to scale the scores to adjust the std.deviation first and to then adjust the mean of the distribution as needed.   
     
     Effect on variance of linear transformation:
    $$Y = aX + b \\ \sigma^{2} = (x_{i} - \mu_{x})^{2}/n \\ (ax_{i} - (ax_{i}/n))^{2}/n \\ (ax_{i} - a\mu_{x})^{2}/n \\ a^{2}x_{i}^{2} - a^{2}\mu_{x}^{2}/n \\ a^{2}(x_{i} - \mu_{x})^{2}/n \\ a^2\sigma^2  $$ 
@@ -18,26 +18,31 @@ How can the scores be linearly transformed to have this new mean and standard de
     Now plugging in for transformation for desired mean:
     $$a\mu + b = 100 \\ 1.5*35 + b = 100 \\ b = 47.5  $$
     Checking in R to see if these are correct:
-```{r}
+
+```{r,message=FALSE,warning=FALSE}
 library(distr)
 test_scores <- Norm(mean = 35, sd = 10)
 1.5 * test_scores + 47.5
 ```
     
-###b) 
+<h2>b)</h2>
 There is another linear transformation that also rescales the scores to have mean 100 and std. deviation 15. What is it, and why would you *not* want to use it for this purpose?
 
 Since standard deviation is an absolute measure, we could make $a$ = -1.5 , and adjust $b$ = 152.5 to achieve the desired $\mu$ and $\sigma$ as seen below.
-```{r}
+```{r, warning=FALSE}
 -1.5 * test_scores + 152.5
 ```
 However, this is undesirable because by multiplying the positive scores by a negative number, scores in the original group that were lower than others will be closer to zero, and after the transformation will be higher than a score that was originally higher before the transformation. 
 ```{r}
 should_be_lower = -1.5*(30) + 152.5
 should_be_higher = -1.5*(35) + 152.5
-paste(c("was 30 before transformation: after transformation is"), c(should_be_lower))
-paste(c("was 35 before transformation: after transformation is"),c(should_be_higher))
+msg1 <- paste(c("was 30 before transformation: after transformation is"), c(should_be_lower))
+msg2 <- paste(c("was 35 before transformation: after transformation is"),c(should_be_higher))
+cat(paste0(msg1,"\n",msg2))
 ```
+
+
+
 
 
 

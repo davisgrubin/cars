@@ -1,0 +1,12 @@
+name: "My Gelman Multilevel & Hierarchical Modeling Solutions"
+output_dir: "docs"
+navbar:
+  title: "My Gelman Multilevel & Hierarchical Modeling Solutions"
+  left:
+  - text: "Home"
+    href: index.html
+  - text: "Chapter 2"
+    href: ch2.html
+output:
+  html_document:
+    theme: cosmo

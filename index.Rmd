@@ -1,0 +1,15 @@
+---
+title: "Gelman Multilevel Modeling Solutions"
+output: html_document
+---
+
+
+## Home
+
+This is a little website I made to document / provide explanations for my solutions to Gelman's Multilevel and Hierarchical Modeling book to deepen my own understanding, and teach myself R Markdown and github pages in the process. 
+
+
+
+
+
+

@@ -11,7 +11,7 @@
 
 
 
-<title>Gelman Multilevel Modeling Solutions</title>
+<title>Gelman Exercises Chapter 2</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -301,15 +301,45 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Gelman Multilevel Modeling Solutions</h1>
+<h1 class="title toc-ignore">Gelman Exercises Chapter 2</h1>
 
 </div>
 
 
-<div id="home" class="section level2">
-<h2>Home</h2>
-<p>This is a little website I made to document / provide explanations for my solutions to Gelman’s Multilevel and Hierarchical Modeling book to deepen my own understanding, and teach myself R Markdown and github pages in the process.</p>
-</div>
+<h1>
+Question 1
+</h1>
+<p>1.A test is graded from 0 to 50, with an average score of 35 and a std. deviation of 10. For comparison of tests, it would be convenient to rescale to a mean of 100 and standard deviation of 15.</p>
+<h2>
+a)
+</h2>
+<p>How can the scores be linearly transformed to have this new mean and standard deviation?</p>
+<p>Changing the mean of the scores only requires addition (shifting the distribution to the right), and doesn’t require a change in scaling, while changing the variance/std deviation will require multiplication that will effect the mean. Because of this, I’ve decided to scale the scores to adjust the std.deviation first and to then adjust the mean of the distribution as needed.</p>
+<pre><code>Effect on variance of linear transformation:</code></pre>
+<p><span class="math display">\[Y = aX + b \\ \sigma^{2} = (x_{i} - \mu_{x})^{2}/n \\ (ax_{i} - (ax_{i}/n))^{2}/n \\ (ax_{i} - a\mu_{x})^{2}/n \\ a^{2}x_{i}^{2} - a^{2}\mu_{x}^{2}/n \\ a^{2}(x_{i} - \mu_{x})^{2}/n \\ a^2\sigma^2  \]</span> Solving for linear transformation to desired variance: <span class="math display">\[\sigma = 10 \\ \sigma^{2} = 100 \\ a^{2}100 = 225 \\ a=1.5\]</span> Now plugging in for transformation for desired mean: <span class="math display">\[a\mu + b = 100 \\ 1.5*35 + b = 100 \\ b = 47.5  \]</span> Checking in R to see if these are correct:</p>
+<pre class="r"><code>library(distr)
+test_scores &lt;- Norm(mean = 35, sd = 10)
+1.5 * test_scores + 47.5</code></pre>
+<pre><code>## Distribution Object of Class: Norm
+##  mean: 100
+##  sd: 15</code></pre>
+<h2>
+b)
+</h2>
+<p>There is another linear transformation that also rescales the scores to have mean 100 and std. deviation 15. What is it, and why would you <em>not</em> want to use it for this purpose?</p>
+<p>Since standard deviation is an absolute measure, we could make <span class="math inline">\(a\)</span> = -1.5 , and adjust <span class="math inline">\(b\)</span> = 152.5 to achieve the desired <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> as seen below.</p>
+<pre class="r"><code>-1.5 * test_scores + 152.5</code></pre>
+<pre><code>## Distribution Object of Class: Norm
+##  mean: 100
+##  sd: 15</code></pre>
+<p>However, this is undesirable because by multiplying the positive scores by a negative number, scores in the original group that were lower than others will be closer to zero, and after the transformation will be higher than a score that was originally higher before the transformation.</p>
+<pre class="r"><code>should_be_lower = -1.5*(30) + 152.5
+should_be_higher = -1.5*(35) + 152.5
+msg1 &lt;- paste(c(&quot;was 30 before transformation: after transformation is&quot;), c(should_be_lower))
+msg2 &lt;- paste(c(&quot;was 35 before transformation: after transformation is&quot;),c(should_be_higher))
+cat(paste0(msg1,&quot;\n&quot;,msg2))</code></pre>
+<pre><code>## was 30 before transformation: after transformation is 107.5
+## was 35 before transformation: after transformation is 100</code></pre>
 
 
 
