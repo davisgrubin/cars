@@ -340,6 +340,36 @@ msg2 &lt;- paste(c(&quot;was 35 before transformation: after transformation is&q
 cat(paste0(msg1,&quot;\n&quot;,msg2))</code></pre>
 <pre><code>## was 30 before transformation: after transformation is 107.5
 ## was 35 before transformation: after transformation is 100</code></pre>
+<h1>
+Question 2
+</h1>
+<p>The following are the proportions of girl births in Vienna for each month in 1908 and 1909 (out of an average of 3900 births per month.)</p>
+<pre class="r"><code>births &lt;- c(.4777,.4875,.4859,.4754,.4874,.4864,.4813,.4787,.4895,.4797,.4876,.4859,.4857,.4907,.5010,.4903,.4860,.4911,.4871,.4725,.4822,.4870,.4823,.4973)</code></pre>
+<p>von Mises used these proportions to claim that the sex ratios were less variable than would be expected by chance.</p>
+<h2>
+a)
+</h2>
+<p>Compute the std. deviation of these proportions and compare to the std. deviation that would be expected if the sexes of babies were independently decided with a constant probability over the 24-month period.</p>
+<pre class="r"><code>sd(births)</code></pre>
+<pre><code>## [1] 0.006409724</code></pre>
+<pre class="r"><code>#self-defined to check for understanding
+sqrt(sum((mean(births) - births)^2)/(length(births) - 1))</code></pre>
+<pre><code>## [1] 0.006409724</code></pre>
+<p>This is a binomial probability model since there are only 2 possible outcomes - Male or Female. This means we can use the formula for calculating the std. deviation of a binomial distribution of proportions.</p>
+<p><span class="math display">\[\sqrt{p * (1-p)/n}\\
+n = 24 \\p= 0.485675\]</span> Calculating the std. deviation with the above formula we get the following:</p>
+<pre class="r"><code>births_prop_sd &lt;- sqrt((mean(births) * (1-mean(births))) / 3900)
+print(births_prop_sd)</code></pre>
+<pre><code>## [1] 0.008003121</code></pre>
+<p>From this we can see that the observed std. deviation of ~.006 is less than the expected standard deviation of ~.008 from a random binomial distribution.</p>
+<h2>
+b)
+</h2>
+<p>The actual and theoretical standard deviations from (a) differ, of course. Is this difference statistically significant? (Hint: under the randomness model, the actual variance should have a distribution with expected value equal to the theoretical variance, and proportional to a <span class="math inline">\(\chi^2\)</span> with 23 degrees of freedom)</p>
+<pre class="r"><code>scale_factor &lt;- births_prop_sd^2/23 
+sqrt(scale_factor * q(Chisq(df=23))(c(.025,.975)))</code></pre>
+<pre><code>## [1] 0.005705265 0.010297197</code></pre>
+<p>The above calculations take the confidence interval at the 5% significance level for a <span class="math inline">\(\chi^2\)</span> distribution with 23 degrees of freedom, then scales them down proportionally by a factor of <span class="math inline">\(d.o.f/\sigma^2\)</span>, following the hint in the question. Since the ~.006 observed std. deviation occurs within this confidence interval we can conclude that observed and theoretical standard deviations’ difference is not statistically significant.</p>
 
 
 
