@@ -84,6 +84,26 @@ sqrt(scale_factor * q(Chisq(df=23))(c(.025,.975)))
 
 The above calculations take the confidence interval at the 5% significance level for a $\chi^2$ distribution with 23 degrees of freedom, then scales them down proportionally by a factor of $d.o.f/\sigma^2$, following the hint in the question. Since the ~.006 observed std. deviation occurs within this confidence interval we can conclude that observed and theoretical standard deviations' difference is not statistically significant.
 
+<h1>Question 3</h1>
+
+Demonstration of the Central Limit Theorem: let $x = x_{1} + ... +x_{20}$, the sum of 20 independent Uniform(0,1) random variables. In R, create 1000 simulations of $x$ and plot their histogram. On the histogram, overlay a graph of the normal density function. Comment on any differences between the histogram and the curve. 
+
+```{r,message=FALSE,warning=FALSE}
+library(ggplot2)
+sums_of_rvs <- replicate(1000,sum(r(Unif(0,1))(20)))
+df <- data.frame(x = sums_of_rvs )
+ggplot(df, aes(x = x)) + 
+	geom_histogram(aes(y = ..density..,binwidth=10)) + 
+	stat_function(
+		fun = dnorm, 
+		args = with(df, c(mean = mean(x), sd = sd(x)))
+	)
+```
+
+There don't appear to be any particularly startling differences between the histogram and the normal curve, other than a small jump slightly above 10 that seems to be unexpectedly high above the curve (though I'm not going to spend the time to see if this is just an artifact of binning).
+
+
+
 
 
 
