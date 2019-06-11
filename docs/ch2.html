@@ -385,6 +385,30 @@ ggplot(df, aes(x = x)) +
     )</code></pre>
 <p><img src="ch2_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <p>There don’t appear to be any particularly startling differences between the histogram and the normal curve, other than a small jump slightly above 10 that seems to be unexpectedly high above the curve (though I’m not going to spend the time to see if this is just an artifact of binning).</p>
+<h1>
+Question 4
+</h1>
+<p>Distribution of averages and differences: the heights of men in the United States are approximately normally distributed with mean 69.1 inches and standard deviation 2.9 inches. The heights of women are apporcimately normally distributed with mean 63.7 in. and sd 2.7 in. Let <span class="math inline">\(x\)</span> be the average height of 100 randomly sampled men, nad <span class="math inline">\(y\)</span> be the average height of 100 randomly sampled women. In R, create 1000 simlations of <span class="math inline">\(x-y\)</span> and plot their histogram. Using the simulations, compute the mean and standard deviation of the distribution of <span class="math inline">\(x-y\)</span> and compare to their exact values.</p>
+<pre class="r"><code>mens_height &lt;- Norm(mean=69.1,sd=2.9)
+womens_height &lt;- Norm(mean=63.7, sd=2.7)
+height_diff &lt;- replicate(1000,mean(r(mens_height)(100)) - mean(r(womens_height)(100)))
+df &lt;- data.frame(x=height_diff)
+ggplot(data=df, aes(x=x)) + geom_histogram(binwidth = .05)</code></pre>
+<p><img src="ch2_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<pre class="r"><code>simulated &lt;- paste0(&quot;Mean of 1000 simulations is &quot;,mean(height_diff),&quot;. Std. deviation is &quot;,sd(height_diff))
+
+theoretical_mean &lt;- mean(mens_height) - mean(womens_height)
+theoretical_sd &lt;- sqrt(sd(mens_height)**2 + sd(womens_height)**2)
+theoretical &lt;- paste0(&quot;Theoretical mean is &quot;,theoretical_mean,&quot;. &quot;,&quot;Std. deviation is &quot;,theoretical_sd)
+cat(simulated,&quot;\n&quot;,theoretical)</code></pre>
+<pre><code>## Mean of 1000 simulations is 5.42141052594428. Std. deviation is 0.392002707091808 
+##  Theoretical mean is 5.39999999999999. Std. deviation is 3.96232255123179</code></pre>
+<p>The mean of the simulated <span class="math inline">\(x-y\)</span> closely approximates the theoretical because of the large number of total simulations, both in the 100 draws each of x and y and the repetition of the operation 1000 times. However the variance the of the simulation is lower due to the fact that the mean of 100 draws is being subtracted rather than simply subtracting a single draw of x from another single draw of y. This would produce a result like that below:</p>
+<pre class="r"><code>sd(r(mens_height)(1000) - r(womens_height)(1000))</code></pre>
+<pre><code>## [1] 3.929627</code></pre>
+<pre class="r"><code>mean(r(mens_height)(1000) - r(womens_height)(1000))</code></pre>
+<pre><code>## [1] 5.303222</code></pre>
+<p>In the simulation above <span class="math inline">\(x-y\)</span> is closer to the theoretical value of the variance (though slightly farther from the mean) due to the number of draws as mentioned above.</p>
 
 
 
