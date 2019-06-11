@@ -102,8 +102,31 @@ ggplot(df, aes(x = x)) +
 
 There don't appear to be any particularly startling differences between the histogram and the normal curve, other than a small jump slightly above 10 that seems to be unexpectedly high above the curve (though I'm not going to spend the time to see if this is just an artifact of binning).
 
+<h1>Question 4</h1> 
 
+Distribution of averages and differences: the heights of men in the United States are approximately normally distributed with mean 69.1 inches and standard deviation 2.9 inches. The heights of women are apporcimately normally distributed with mean 63.7 in. and sd 2.7 in. Let $x$ be the average height of 100 randomly sampled men, nad $y$ be the average height of 100 randomly sampled women. In R, create 1000 simlations of $x-y$ and plot their histogram. Using the simulations, compute the mean and standard deviation of the distribution of $x-y$ and compare to their exact values.
 
+```{r}
+mens_height <- Norm(mean=69.1,sd=2.9)
+womens_height <- Norm(mean=63.7, sd=2.7)
+height_diff <- replicate(1000,mean(r(mens_height)(100)) - mean(r(womens_height)(100)))
+df <- data.frame(x=height_diff)
+ggplot(data=df, aes(x=x)) + geom_histogram(binwidth = .05)
+```
+```{r}
+simulated <- paste0("Mean of 1000 simulations is ",mean(height_diff),". Std. deviation is ",sd(height_diff))
+
+theoretical_mean <- mean(mens_height) - mean(womens_height)
+theoretical_sd <- sqrt(sd(mens_height)**2 + sd(womens_height)**2)
+theoretical <- paste0("Theoretical mean is ",theoretical_mean,". ","Std. deviation is ",theoretical_sd)
+cat(simulated,"\n",theoretical)
+```
+The mean of the simulated $x-y$ closely approximates the theoretical because of the large number of total simulations, both in the 100 draws each of x and y and the repetition of the operation 1000 times. However the variance the of the simulation is lower due to the fact that the mean of 100 draws is being subtracted rather than simply subtracting a single draw of x from another single draw of y. This would produce a result like that below:
+```{R}
+sd(r(mens_height)(1000) - r(womens_height)(1000))
+mean(r(mens_height)(1000) - r(womens_height)(1000))
+```
+In the simulation above $x-y$ is closer to the theoretical value of the variance (though slightly farther from the mean) due to the number of draws as mentioned above.
 
 
 
