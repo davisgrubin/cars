@@ -100,7 +100,7 @@ ggplot(df, aes(x = x)) +
 	)
 ```
 
-There don't appear to be any particularly startling differences between the histogram and the normal curve, other than a small jump slightly above 10 that seems to be unexpectedly high above the curve (though I'm not going to spend the time to see if this is just an artifact of binning).
+There don't appear to be any particularly startling differences between the histogram and the normal curve, though if we were trying to get the most exact match possible changing around the binwidth might provide a more exact match.
 
 <h1>Question 4</h1> 
 
@@ -127,6 +127,31 @@ sd(r(mens_height)(1000) - r(womens_height)(1000))
 mean(r(mens_height)(1000) - r(womens_height)(1000))
 ```
 In the simulation above $x-y$ is closer to the theoretical value of the variance (though slightly farther from the mean) due to the number of draws as mentioned above.
+
+<h1>Question 5</h1>
+
+Correlated random variables: suppose that the heights of husbands and wives have a correlation of 0.3. Let $x$ and $y$ be the heights of a married heterosexual couple chosen at random. What are the mean and standard deviation of the average height, $(x+y)/2$ ?
+
+Formulas for mean and variance of sum of correlated random variables:
+
+$$ 
+\sigma_{ax+by} = \sqrt{a^{2}\sigma_{x}^{2} + b^{2}\sigma_{y}^{2} + 2ab\rho\sigma_{x}\sigma_{y}} \\ 
+\mu_{ax+by} = a\mu_{x} + b\mu_{y} \\
+avg.height = x+y/2 = .5x + .5y \\
+\rho = .3 , \mu_{x} = 69.1, \sigma_{x} = 2.9, \mu_{y} = 63.7, \sigma_{y} = 2.7,a=b=.5
+$$
+
+Using the above formulas and plugging in the given information from the question into R we get the following:
+
+```{r}
+couple_mean = .5*mean(mens_height) + .5*mean(womens_height)
+couple_sd = sqrt(.5**2*sd(mens_height)**2 + .5**2*sd(womens_height)**2 + (2*.5*.5*.3*sd(mens_height)*sd(womens_height)))
+cat(paste("The mean average height of a married couple (x+y/2) is",couple_mean,"and the sd is",couple_sd,"."))
+```
+
+
+
+
 
 
 
