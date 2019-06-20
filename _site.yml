@@ -1,12 +1,14 @@
-name: "My Gelman Multilevel & Hierarchical Modeling Solutions"
+name: "My Data Analysis using Regression and Multilevel & Hierarchical Modeling Solutions"
 output_dir: "docs"
 navbar:
-  title: "My Gelman Multilevel & Hierarchical Modeling Solutions"
+  title: "My Data Analysis Using Regression Multilevel & Hierarchical Modeling Solutions"
   left:
   - text: "Home"
     href: index.html
   - text: "Chapter 2"
     href: ch2.html
+  - text: "Chapter 3"
+    href: ch3.html
 output:
   html_document:
     theme: cosmo
