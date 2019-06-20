@@ -13,7 +13,7 @@ pyth <- read.table("ARM_data/pyth",header=TRUE)
 <h2>a)</h2>
 Use R to fit a linear regression model predicting $y$ from $x_1,x_2$ using the first 40 data points in the file. Summarize the inferences and check the fit of your model.
 
-```{r}
+```{r,message=FALSE,warning=FALSE}
 library(arm)
 fit <- lm(y ~ x1 + x2, data = pyth, subset = 1:40)
 display(fit)
